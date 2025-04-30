@@ -1,0 +1,421 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   AI ZxZ || Elaina || by Zymzz || Base Google Gemini
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      position: relative;
+      background-color: #f9fafb;
+      overflow-x: hidden;
+    }
+    #background-image {
+      position: fixed;
+      inset: 0;
+      z-index: -10;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      pointer-events: none;
+      user-select: none;
+      filter: brightness(0.7) contrast(1.1);
+    }
+    #ai-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem; /* 3 */
+      padding: 1rem 1rem;
+      background-color: #2563eb; /* Tailwind blue-600 */
+      box-shadow:
+        0 0 10px #22c55e,
+        0 0 20px #22c55e,
+        0 0 30px #22c55e;
+      color: white;
+      position: relative;
+      z-index: 10;
+    }
+    #profile-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 9999px;
+      background-color: #6b7280; /* Tailwind gray-500 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid white;
+      flex-shrink: 0;
+      color: white;
+      font-size: 28px;
+      z-index: 10;
+    }
+    #ai-label {
+      font-weight: 600;
+      color: white;
+      margin-right: 0.25rem; /* 1 */
+      user-select: none;
+    }
+    #zxz-name {
+      font-weight: 700;
+      animation: rainbow 5s linear infinite;
+      display: inline-block;
+      color: white;
+      text-shadow:
+        0 0 5px #22c55e,
+        0 0 10px #22c55e,
+        0 0 20px #22c55e,
+        0 0 40px #22c55e;
+      user-select: none;
+    }
+    #zymzz-name {
+      font-weight: 700;
+      color: white;
+      display: inline-block;
+      margin-left: 0.5rem; /* 2 */
+      user-select: none;
+    }
+    #footer-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      position: relative;
+      z-index: 10;
+    }
+    #powered-by {
+      color: #4b5563; /* Tailwind gray-600 */
+      font-size: 0.875rem; /* text-sm */
+    }
+    #copyright {
+      color: #6b7280; /* Tailwind gray-500 */
+      font-size: 0.75rem; /* text-xs */
+    }
+    @keyframes rainbow {
+      0%{color:#ff0000;}
+      14%{color:#ff7f00;}
+      28%{color:#ffff00;}
+      42%{color:#00ff00;}
+      56%{color:#0000ff;}
+      70%{color:#4b0082;}
+      84%{color:#8f00ff;}
+      100%{color:#ff0000;}
+    }
+    #chat-container {
+      position: relative;
+      background-color: #00DFFF;
+      box-shadow: 0 0 15px #00DFFF;
+      border-radius: 0.5rem; /* match rounded-lg */
+      height: 60vh;
+      width: 100%;
+      max-width: 48rem; /* max-w-3xl */
+      margin-bottom: 1rem;
+      padding: 1rem;
+      overflow: hidden;
+      z-index: 10;
+    }
+    #chat-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      user-select: none;
+      filter: brightness(0.85);
+      border-radius: 0.5rem; /* match rounded-lg */
+    }
+    #chat-messages {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      height: 100%;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+      color: #000000cc;
+    }
+    /* User avatar black background */
+    .avatar-user {
+      background-color: #000000 !important;
+      color: white !important;
+    }
+    /* Override user message bubble background for better contrast */
+    #chat-messages > div > div.bg-blue-600 {
+      background-color: #007ea8 !important;
+    }
+    /* Override AI message bubble background for better contrast */
+    #chat-messages > div > div.bg-gray-200 {
+      background-color: #e0f7fa !important;
+      color: #004d40 !important;
+    }
+    /* Override error message bubble background */
+    #chat-messages > div > div.bg-red-100 {
+      background-color: #ffebee !important;
+      color: #b71c1c !important;
+      border-color: #b71c1c !important;
+    }
+    /* Input background with slight opacity for better visibility */
+    #user-input {
+      background-color: rgba(255 255 255 / 0.9);
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col relative">
+  <img alt="Background image of a futuristic AI robot with glowing blue eyes and digital circuits, representing advanced artificial intelligence technology" aria-hidden="true" draggable="false" height="1080" id="background-image" src="https://storage.googleapis.com/a1aa/image/96fb56d4-6837-42df-9647-33f2afe1554b.jpg" width="1920"/>
+  <header aria-label="AI ZxZ by Zymzz header" id="ai-header" role="banner">
+   <div aria-label="AI profile icon" id="profile-icon">
+    <i class="fas fa-robot">
+    </i>
+   </div>
+   <h1 aria-label="AI ZxZ by Zymzz" class="text-2xl font-semibold flex items-center">
+    <span id="ai-label">
+     AI
+    </span>
+    <span id="zxz-name">
+     ZxZ
+    </span>
+    <span aria-label="Zymzz in white" id="zymzz-name">
+     by Zymzz
+    </span>
+   </h1>
+  </header>
+  <main class="flex-grow flex flex-col max-w-3xl mx-auto w-full p-4 relative z-10">
+   <div class="flex flex-col items-center w-full">
+    <div aria-label="Chat messages" aria-live="polite" id="chat-container">
+     <img alt="Background image with abstract blue and green digital wave patterns, glowing and flowing smoothly, representing futuristic AI technology" aria-hidden="true" draggable="false" id="chat-bg" src="https://files.catbox.moe/9qn1pg.jpeg"/>
+     <div class="flex flex-col space-y-4 overflow-y-auto h-full w-full" id="chat-messages">
+     </div>
+    </div>
+    <form aria-label="Send message form" class="flex space-x-2 w-full max-w-3xl" id="chat-form">
+     <input aria-label="Message input" aria-required="true" autocomplete="off" class="flex-grow border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="user-input" placeholder="Type your message..." required="" type="text"/>
+     <button aria-label="Send message" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center" type="submit">
+      <i class="fas fa-paper-plane">
+      </i>
+     </button>
+    </form>
+   </div>
+  </main>
+  <footer class="bg-gray-100 p-4 relative z-10">
+   <div class="max-w-3xl mx-auto text-center" id="footer-container">
+    <div class="text-gray-600 text-sm" id="powered-by">
+     Ai ZxZ Create by
+     <a class="text-blue-600 hover:underline font-semibold" href="https://www.tiktok.com/@camzym7" rel="noopener noreferrer" target="_blank">
+      Zymzz <a>x Base Google Gemini</a>
+     </a>
+  </footer>
+  <script>
+   const chatContainer = document.getElementById('chat-container');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatForm = document.getElementById('chat-form');
+    const userInput = document.getElementById('user-input');
+
+    // Your Google Gemini API key
+    const API_KEY = 'AIzaSyC4Duw-82PjFMP2DOlAmxzN6n2bpb8Vax0';
+
+    // Gemini API endpoint with API key embedded as requested
+    const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyC4Duw-82PjFMP2DOlAmxzN6n2bpb8Vax0';
+
+    // Append message to chat container with profile icons
+    function appendMessage(message, sender, isError = false) {
+      const wrapper = document.createElement('div');
+      wrapper.className = sender === 'user' ? 'self-end max-w-[80%] flex items-start space-x-2 justify-end' : 'self-start max-w-[80%] flex items-start space-x-2';
+
+      const avatar = document.createElement('div');
+      avatar.className = 'w-8 h-8 rounded-full flex-shrink-0 select-none flex items-center justify-center text-white text-xs font-semibold';
+      if (sender === 'user') {
+        avatar.classList.add('avatar-user');
+        avatar.setAttribute('aria-label', 'User profile icon');
+        avatar.textContent = 'You';
+      } else {
+        avatar.classList.add('bg-gray-500');
+        avatar.setAttribute('aria-label', 'AI profile icon');
+        avatar.innerHTML = '<i class="fas fa-robot"></i>';
+      }
+
+      const messageWrapper = document.createElement('div');
+      if (sender === 'user') {
+        messageWrapper.className = 'bg-blue-600 text-white rounded-lg px-4 py-2 break-words whitespace-pre-wrap max-w-full';
+        messageWrapper.textContent = message;
+      } else {
+        if (isError) {
+          messageWrapper.className = 'bg-red-100 text-red-700 border border-red-500 rounded-lg px-4 py-2 break-words whitespace-pre-wrap font-semibold flex items-center space-x-2 max-w-full';
+          const errorIcon = document.createElement('i');
+          errorIcon.className = 'fas fa-exclamation-triangle';
+          messageWrapper.appendChild(errorIcon);
+          const textSpan = document.createElement('span');
+          textSpan.innerHTML = message.replace(/\n/g, '<br>');
+          messageWrapper.appendChild(textSpan);
+        } else {
+          messageWrapper.className = 'bg-gray-200 text-gray-900 rounded-lg px-4 py-2 break-words whitespace-pre-wrap max-w-full';
+          // Process AI message to replace **text** with bold text without asterisks
+          // Use a regex to find **text** and replace with <strong>text</strong>
+          // Since we want to preserve line breaks and allow HTML, use innerHTML
+          const htmlMessage = message
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\n/g, '<br>');
+          messageWrapper.innerHTML = htmlMessage;
+        }
+      }
+
+      if (sender === 'user') {
+        wrapper.appendChild(messageWrapper);
+        wrapper.appendChild(avatar);
+      } else {
+        wrapper.appendChild(avatar);
+        wrapper.appendChild(messageWrapper);
+      }
+
+      chatMessages.appendChild(wrapper);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Show loading message from AI
+    function appendLoading() {
+      const loading = document.createElement('div');
+      loading.className = 'self-start max-w-[80%] bg-gray-200 text-gray-900 rounded-lg px-4 py-2 flex items-center space-x-2';
+      loading.id = 'loading-message';
+
+      const spinner = document.createElement('i');
+      spinner.className = 'fas fa-spinner fa-spin';
+
+      const text = document.createElement('span');
+      text.textContent = 'AI is typing...';
+
+      loading.appendChild(spinner);
+      loading.appendChild(text);
+
+      chatMessages.appendChild(loading);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Remove loading message
+    function removeLoading() {
+      const loading = document.getElementById('loading-message');
+      if (loading) {
+        loading.remove();
+      }
+    }
+
+    // Extract text from Gemini API response
+    function extractTextFromResponse(data) {
+      if (data.candidates && data.candidates.length > 0) {
+        let content = data.candidates[0].content;
+        if (typeof content === 'string') {
+          return content.trim();
+        } else if (typeof content === 'object' && content.parts && Array.isArray(content.parts)) {
+          // Join all parts text
+          return content.parts.map(part => part.text).join('').trim();
+        } else {
+          return JSON.stringify(content, null, 2);
+        }
+      }
+      return 'Sorry, I did not get a response.';
+    }
+
+    // Check if user message asks about creator
+    function isAskingCreator(message) {
+      const lower = message.toLowerCase();
+      return (
+        lower.includes('pembuat anda') ||
+        lower.includes('pencipta anda') ||
+        lower.includes('siapa pencipta anda') ||
+        lower.includes('siapa pembuat anda') ||
+        lower.includes('siapa yang membuat anda') ||
+        lower.includes('siapa yang menciptakan anda') ||
+        lower.includes('siapa yang pencipta anda') ||
+        lower.includes('siapa yang pembuat anda')
+      );
+    }
+
+    // Send message to Gemini API
+    async function sendMessageToGemini(message) {
+      // If user asks about creator, return fixed response
+      if (isAskingCreator(message)) {
+        return 'Nama Pencipta Zymzz, base Google Gemini dan di latih oleh Google';
+      }
+
+      const requestBody = {
+        contents: [
+          {
+            parts: [
+              { text: message }
+            ]
+          }
+        ]
+      };
+//URL API
+      try {
+        const response = await fetch(GEMINI_API_URL,{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestBody)
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          // If error message contains "The model is overloaded", treat as overload error
+          if (errorText.includes('The model is overloaded')) {
+            return { error503: true };
+          }
+          throw new Error(`API error: ${response.status} - ${errorText}`);
+        }
+
+        const data = await response.json();
+
+        return { text: extractTextFromResponse(data) };
+      } catch (error) {
+        if (error.message.includes('The model is overloaded')) {
+          return { error503: true };
+        }
+        return { text: `Error: ${error.message}` };
+      }
+    }
+
+    // On page load, append initial AI greeting message
+    window.addEventListener('DOMContentLoaded', () => {
+      appendMessage('Haii apakah yg bisa saya bantu!! silahkan ketik di bawah jika ada pertanyaan apa pun', 'ai');
+      userInput.focus();
+    });
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const message = userInput.value.trim();
+      if (!message) return;
+
+      appendMessage(message, 'user');
+      userInput.value = '';
+      userInput.disabled = true;
+
+      appendLoading();
+
+      const aiResponse = await sendMessageToGemini(message);
+
+      removeLoading();
+
+      if (aiResponse) {
+        if (aiResponse.error503) {
+          appendMessage('Error 503: Server terlalu banyak respons terjadi, coba lagi.', 'ai', true);
+        } else if (aiResponse.text && !aiResponse.text.toLowerCase().startsWith('error: api error: 503')) {
+          appendMessage(aiResponse.text, 'ai');
+        }
+      }
+
+      userInput.disabled = false;
+      userInput.focus();
+    });
+  </script>
+ </body>
+</html>
